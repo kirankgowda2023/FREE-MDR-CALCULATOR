@@ -73,20 +73,25 @@ class FreeMdrViewModel @JvmOverloads constructor(
             profileRepository.ensureProfileExists()
             profileRepository.businessProfile.collect { profile ->
                 if (profile != null) {
-                    val hasConfigured = prefs.getBoolean("has_saved_upi_vpa", false)
+                    if (profile.upiVpa.isBlank() || profile.upiVpa.contains("kiran", ignoreCase = true)) {
+                        prefs.edit().putBoolean("has_saved_upi_vpa", false).apply()
+                    }
+                    val hasConfigured = prefs.getBoolean("has_saved_upi_vpa", false) && profile.upiVpa.isNotBlank()
                     _uiState.update { current ->
                         val vpaToUse = if (!hasUserEditedVpa && profile.upiVpa.isNotBlank()) {
                             profile.upiVpa
+                        } else if (!hasUserEditedVpa) {
+                            ""
                         } else {
                             current.merchantUpiId
                         }
-                        if (!hasUserEditedVpa && profile.upiVpa.isNotBlank()) {
+                        if (!hasUserEditedVpa) {
                             lastSavedVpa = profile.upiVpa
                         }
                         val nameToUse = if (profile.businessName.isNotBlank()) {
                             profile.businessName
                         } else {
-                            current.merchantName
+                            "Merchant"
                         }
                         current.copy(
                             merchantUpiId = vpaToUse,

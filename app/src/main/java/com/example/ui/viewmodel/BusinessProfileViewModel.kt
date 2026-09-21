@@ -23,8 +23,8 @@ data class BusinessProfileUiState(
     val phoneNumber: String = "",
     val email: String = "",
     val address: String = "",
-    val monthlyVolumeText: String = "250000",
-    val isVerifiedMerchant: Boolean = true,
+    val monthlyVolumeText: String = "",
+    val isVerifiedMerchant: Boolean = false,
     val isSaving: Boolean = false,
     val saveSuccessMessage: String? = null,
     val businessNameError: String? = null,
@@ -94,8 +94,9 @@ class BusinessProfileViewModel @JvmOverloads constructor(
                             address = profile.address,
                             monthlyVolumeText = if (profile.estimatedMonthlyVolume > 0) {
                                 profile.estimatedMonthlyVolume.toLong().toString()
-                            } else "150000",
-                            isVerifiedMerchant = profile.isVerifiedMerchant
+                            } else "",
+                            isVerifiedMerchant = profile.isVerifiedMerchant,
+                            saveSuccessMessage = current.saveSuccessMessage
                         )
                     }
                 }
@@ -205,7 +206,7 @@ class BusinessProfileViewModel @JvmOverloads constructor(
                 phoneNumber = state.phoneNumber.trim(),
                 email = state.email.trim(),
                 address = state.address.trim(),
-                estimatedMonthlyVolume = state.monthlyVolumeText.toDoubleOrNull() ?: 150000.0,
+                estimatedMonthlyVolume = state.monthlyVolumeText.toDoubleOrNull() ?: 0.0,
                 isVerifiedMerchant = state.isVerifiedMerchant
             )
             repository.updateProfile(entity)
@@ -216,7 +217,6 @@ class BusinessProfileViewModel @JvmOverloads constructor(
                     .apply()
             }
             isUserEditing = false
-            isSavingProfile = false
             _uiState.update {
                 it.copy(
                     isSaving = false,
@@ -224,6 +224,7 @@ class BusinessProfileViewModel @JvmOverloads constructor(
                     saveSuccessMessage = "Business profile updated successfully!"
                 )
             }
+            isSavingProfile = false
         }
     }
 }

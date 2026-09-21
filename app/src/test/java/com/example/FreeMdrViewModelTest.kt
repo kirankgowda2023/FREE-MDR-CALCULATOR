@@ -57,7 +57,7 @@ class FreeMdrViewModelTest {
     @Test
     fun `default 5500 amount splits into exactly 1999, 1999, and 1502 parts`() = runTest {
         viewModel.onTotalAmountChanged("5500")
-        viewModel.onMerchantUpiChanged("9686200809@ptaxis")
+        viewModel.onMerchantUpiChanged("merchant@ptaxis")
         ShadowLooper.idleMainLooper()
         advanceUntilIdle()
 
@@ -68,7 +68,7 @@ class FreeMdrViewModelTest {
         // Part 1
         assertEquals(1, state.parts[0].partIndex)
         assertEquals(1999.0, state.parts[0].amount, 0.001)
-        assertTrue(state.parts[0].upiUri.contains("pa=9686200809@ptaxis"))
+        assertTrue(state.parts[0].upiUri.contains("pa=merchant@ptaxis"))
         assertTrue(state.parts[0].upiUri.contains("am=1999.00"))
 
         // Part 2

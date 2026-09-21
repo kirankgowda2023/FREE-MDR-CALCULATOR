@@ -189,7 +189,7 @@ fun ProfileScreen(
                         value = uiState.businessName,
                         onValueChange = { viewModel.onBusinessNameChanged(it) },
                         label = "Business / Store Name *",
-                        placeholder = "e.g. Kiran Retail & Electronics",
+                        placeholder = "e.g. Star Retail & Grocery Store",
                         leadingIcon = Icons.Default.Home,
                         errorMessage = uiState.businessNameError,
                         testTag = "input_business_name"
@@ -200,7 +200,7 @@ fun ProfileScreen(
                         value = uiState.ownerName,
                         onValueChange = { viewModel.onOwnerNameChanged(it) },
                         label = "Owner / Merchant Name",
-                        placeholder = "e.g. Kiran Gowda",
+                        placeholder = "e.g. Store Owner Name",
                         leadingIcon = Icons.Default.Person,
                         testTag = "input_owner_name"
                     )
@@ -316,7 +316,7 @@ fun ProfileScreen(
                         value = uiState.gstin,
                         onValueChange = { viewModel.onGstinChanged(it) },
                         label = "GSTIN Number (Optional)",
-                        placeholder = "e.g. 29AABCU9603R1ZM",
+                        placeholder = "e.g. 29AAAAA0000A1Z5",
                         leadingIcon = Icons.Default.Edit,
                         errorMessage = uiState.gstinError,
                         capitalization = KeyboardCapitalization.Characters,
@@ -333,7 +333,7 @@ fun ProfileScreen(
                         value = uiState.phoneNumber,
                         onValueChange = { viewModel.onPhoneNumberChanged(it) },
                         label = "Contact Phone Number",
-                        placeholder = "+91 98765 43210",
+                        placeholder = "+91 98000 00000",
                         leadingIcon = Icons.Default.Phone,
                         keyboardType = KeyboardType.Phone,
                         testTag = "input_phone"

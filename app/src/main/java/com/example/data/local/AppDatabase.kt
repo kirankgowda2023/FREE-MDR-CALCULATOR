@@ -30,22 +30,22 @@ abstract class AppDatabase : RoomDatabase() {
                     .addCallback(object : Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
-                            // Seed default business profile
+                            // Seed empty business profile (no personal user data)
                             CoroutineScope(Dispatchers.IO).launch {
                                 INSTANCE?.businessProfileDao()?.insertOrUpdate(
                                     BusinessProfileEntity(
                                         id = 1,
-                                        businessName = "Kiran Supermarket & Stores",
-                                        ownerName = "Kiran Gowda",
+                                        businessName = "",
+                                        ownerName = "",
                                         merchantCategory = "REGULAR_P2M",
-                                        upiVpa = "kirangowda@upi",
-                                        gstin = "29AABCU9603R1ZM",
+                                        upiVpa = "",
+                                        gstin = "",
                                         businessType = "Retail Store",
-                                        phoneNumber = "+91 98765 43210",
-                                        email = "kirankgowda123@gmail.com",
-                                        address = "12th Main, Indiranagar, Bengaluru, Karnataka 560038",
-                                        estimatedMonthlyVolume = 250000.0,
-                                        isVerifiedMerchant = true
+                                        phoneNumber = "",
+                                        email = "",
+                                        address = "",
+                                        estimatedMonthlyVolume = 0.0,
+                                        isVerifiedMerchant = false
                                     )
                                 )
                             }

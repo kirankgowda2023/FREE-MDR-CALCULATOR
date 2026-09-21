@@ -18,21 +18,44 @@ class BusinessProfileRepository(
     }
 
     suspend fun ensureProfileExists() = withContext(ioDispatcher) {
-        if (dao.getProfileCount() == 0) {
+        val current = dao.getBusinessProfileOnce()
+        if (current == null) {
             dao.insertOrUpdate(
                 BusinessProfileEntity(
                     id = 1,
-                    businessName = "Kiran Supermarket & Stores",
-                    ownerName = "Kiran Gowda",
+                    businessName = "",
+                    ownerName = "",
                     merchantCategory = "REGULAR_P2M",
-                    upiVpa = "kirangowda@upi",
-                    gstin = "29AABCU9603R1ZM",
+                    upiVpa = "",
+                    gstin = "",
                     businessType = "Retail Store",
-                    phoneNumber = "+91 98765 43210",
-                    email = "kirankgowda123@gmail.com",
-                    address = "12th Main, Indiranagar, Bengaluru, Karnataka 560038",
-                    estimatedMonthlyVolume = 250000.0,
-                    isVerifiedMerchant = true
+                    phoneNumber = "",
+                    email = "",
+                    address = "",
+                    estimatedMonthlyVolume = 0.0,
+                    isVerifiedMerchant = false
+                )
+            )
+        } else if (
+            current.businessName.contains("Kiran", ignoreCase = true) ||
+            current.ownerName.contains("Kiran", ignoreCase = true) ||
+            current.upiVpa.contains("kiran", ignoreCase = true) ||
+            current.email.contains("kiran", ignoreCase = true) ||
+            current.phoneNumber.contains("98765")
+        ) {
+            // Remove legacy default user data completely
+            dao.insertOrUpdate(
+                current.copy(
+                    businessName = "",
+                    ownerName = "",
+                    upiVpa = "",
+                    gstin = "",
+                    phoneNumber = "",
+                    email = "",
+                    address = "",
+                    estimatedMonthlyVolume = 0.0,
+                    isVerifiedMerchant = false,
+                    updatedAt = System.currentTimeMillis()
                 )
             )
         }
@@ -52,17 +75,17 @@ class BusinessProfileRepository(
             dao.insertOrUpdate(
                 BusinessProfileEntity(
                     id = 1,
-                    businessName = "Kiran Supermarket & Stores",
-                    ownerName = "Kiran Gowda",
+                    businessName = "",
+                    ownerName = "",
                     merchantCategory = "REGULAR_P2M",
                     upiVpa = clean,
-                    gstin = "29AABCU9603R1ZM",
+                    gstin = "",
                     businessType = "Retail Store",
-                    phoneNumber = "+91 98765 43210",
-                    email = "kirankgowda123@gmail.com",
-                    address = "12th Main, Indiranagar, Bengaluru, Karnataka 560038",
-                    estimatedMonthlyVolume = 250000.0,
-                    isVerifiedMerchant = true
+                    phoneNumber = "",
+                    email = "",
+                    address = "",
+                    estimatedMonthlyVolume = 0.0,
+                    isVerifiedMerchant = false
                 )
             )
             true

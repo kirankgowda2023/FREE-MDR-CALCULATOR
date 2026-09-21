@@ -63,18 +63,18 @@ class BusinessProfileViewModelTest {
 
     @Test
     fun `updating business details modifies UI state`() {
-        viewModel.onBusinessNameChanged("Kiran Electronics & Appliances")
-        viewModel.onOwnerNameChanged("Kiran G")
-        viewModel.onUpiVpaChanged("kiranelectronics@upi")
-        viewModel.onGstinChanged("29AABCU9603R1ZM")
+        viewModel.onBusinessNameChanged("Apex Electronics & Appliances")
+        viewModel.onOwnerNameChanged("Rajesh Kumar")
+        viewModel.onUpiVpaChanged("apexmerchant@upi")
+        viewModel.onGstinChanged("29AAAAA0000A1Z5")
         viewModel.onBusinessTypeChanged("Retail Store")
         viewModel.onCategoryChanged(UpiCategory.REGULAR_P2M)
 
         val state = viewModel.uiState.value
-        assertEquals("Kiran Electronics & Appliances", state.businessName)
-        assertEquals("Kiran G", state.ownerName)
-        assertEquals("kiranelectronics@upi", state.upiVpa)
-        assertEquals("29AABCU9603R1ZM", state.gstin)
+        assertEquals("Apex Electronics & Appliances", state.businessName)
+        assertEquals("Rajesh Kumar", state.ownerName)
+        assertEquals("apexmerchant@upi", state.upiVpa)
+        assertEquals("29AAAAA0000A1Z5", state.gstin)
         assertNull(state.businessNameError)
         assertNull(state.upiVpaError)
         assertNull(state.gstinError)
@@ -97,9 +97,9 @@ class BusinessProfileViewModelTest {
 
     @Test
     fun `saving valid profile persists successfully`() = runTest(testDispatcher) {
-        viewModel.onBusinessNameChanged("Kiran Supermarket")
-        viewModel.onOwnerNameChanged("Kiran")
-        viewModel.onUpiVpaChanged("kiransupermarket@upi")
+        viewModel.onBusinessNameChanged("Apex Supermarket")
+        viewModel.onOwnerNameChanged("Rajesh")
+        viewModel.onUpiVpaChanged("apexsupermarket@upi")
         viewModel.saveBusinessProfile()
         ShadowLooper.idleMainLooper()
         advanceUntilIdle()
