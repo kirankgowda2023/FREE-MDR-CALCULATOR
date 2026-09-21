@@ -1,0 +1,6 @@
+{
+  "name": "MDR Calculator",
+  "description": "Financial utility for merchants to calculate MDR, GST, transaction fees, and net settlement.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
